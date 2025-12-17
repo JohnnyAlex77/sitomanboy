@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sito Man Boy</string>
+    <string name="app_description">Sistema de gestión de repuestos y sucursales</string>
+    <string name="btn_ingresar">Ingresar al Sistema</string>
+    <string name="logo_sito_man_boy">Logo Sito Man Boy</string>
+    <string name="modulo_repuestos">Módulo Repuestos</string>
+    <string name="modulo_sucursales">Módulo Sucursales</string>
+    <string name="crear_repuesto">Crear Repuesto</string>
+    <string name="lista_repuestos">Lista de Repuestos</string>
+    <string name="buscar_repuesto">Buscar Repuesto</string>
+    <string name="serie">Serie</string>
+    <string name="descripcion">Descripción</string>
+    <string name="stock">Stock</string>
+    <string name="crear">Crear</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="volver">Volver</string>
+</resources>
