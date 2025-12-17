@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark theme override -->
+    <style name="Theme.SitoManBoy" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_light</item>
+        <item name="colorOnPrimary">@color/black</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_light</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Dark theme backgrounds -->
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:colorBackground">@color/background_color</item>
+
+        <!-- Text colors for dark theme -->
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface_color</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
+        <!-- Button styles adjusted for dark theme -->
+        <item name="materialButtonStyle">@style/Widget.SitoManBoy.Button.Dark</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.SitoManBoy.Button.Outlined.Dark</item>
+
+        <!-- EditText styles for dark theme -->
+        <item name="editTextStyle">@style/Widget.SitoManBoy.EditText.Dark</item>
+
+        <!-- CardView styles for dark theme -->
+        <item name="cardViewStyle">@style/Widget.SitoManBoy.CardView.Dark</item>
+    </style>
+
+    <!-- Dark theme button style -->
+    <style name="Widget.SitoManBoy.Button.Dark" parent="Widget.SitoManBoy.Button">
+        <item name="backgroundTint">@color/primary_color</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Dark theme outlined button -->
+    <style name="Widget.SitoManBoy.Button.Outlined.Dark" parent="Widget.SitoManBoy.Button.Outlined">
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+
+    <!-- Dark theme EditText -->
+    <style name="Widget.SitoManBoy.EditText.Dark" parent="Widget.SitoManBoy.EditText">
+        <item name="boxBackgroundColor">@color/surface_color</item>
+        <item name="boxStrokeColor">@color/gray_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- Dark theme CardView -->
+    <style name="Widget.SitoManBoy.CardView.Dark" parent="Widget.SitoManBoy.CardView">
+        <item name="cardBackgroundColor">@color/surface_color</item>
+    </style>
+
+    <!-- Dark theme splash screen -->
+    <style name="Theme.SitoManBoy.Splash" parent="Theme.SitoManBoy">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!-- Dark theme dialog -->
+    <style name="Theme.SitoManBoy.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.8</item>
+    </style>
+
+</resources>

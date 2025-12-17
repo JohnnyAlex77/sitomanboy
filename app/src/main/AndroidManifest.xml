@@ -4,66 +4,113 @@
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.SitoManBoy"
         tools:targetApi="31">
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:theme="@style/Theme.SitoManBoy.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Modules Selection Activity -->
         <activity
             android:name=".ModulesActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/modules_title" />
 
-        <!-- Módulo Repuestos -->
+        <!-- Repuestos Module Activities -->
         <activity
             android:name=".repuesto.RepuestoActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/repuestos_title" />
 
         <activity
             android:name=".repuesto.CrearRepuestoActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/crear_repuesto_title" />
 
         <activity
             android:name=".repuesto.ListaRepuestosActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/lista_repuestos_title" />
 
         <activity
             android:name=".repuesto.DetalleRepuestoActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/detalle_repuesto_title" />
 
         <activity
             android:name=".repuesto.ModificarRepuestoActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/modificar_repuesto_title" />
 
         <activity
             android:name=".repuesto.ConfirmarEliminacionActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dialog"
+            android:label="@string/confirmar_eliminacion_title" />
 
-        <!-- Módulo Sucursales -->
+        <!-- Sucursales Module Activities -->
         <activity
             android:name=".sucursal.SucursalActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/sucursales_title" />
 
-        <!-- Puedes agregar las demás actividades de sucursales aquí -->
+        <activity
+            android:name=".sucursal.CrearSucursalActivity"
+            android:exported="false"
+            android:label="@string/crear_sucursal_title" />
+
+        <activity
+            android:name=".sucursal.ListaSucursalesActivity"
+            android:exported="false"
+            android:label="@string/lista_sucursales_title" />
+
+        <activity
+            android:name=".sucursal.DetalleSucursalActivity"
+            android:exported="false"
+            android:label="@string/detalle_sucursal_title" />
+
+        <activity
+            android:name=".sucursal.ModificarSucursalActivity"
+            android:exported="false"
+            android:label="@string/modificar_sucursal_title" />
+
+        <activity
+            android:name=".sucursal.InventarioSucursalActivity"
+            android:exported="false"
+            android:label="@string/inventario_sucursal_title" />
+
+        <activity
+            android:name=".sucursal.AgregarProductoActivity"
+            android:exported="false"
+            android:label="@string/agregar_producto_title" />
+
+        <activity
+            android:name=".sucursal.ModificarStockActivity"
+            android:exported="false"
+            android:label="@string/modificar_stock_title" />
+
+        <activity
+            android:name=".sucursal.ConfirmarEliminacionSucursalActivity"
+            android:exported="false"
+            android:theme="@style/ThemeOverlay.AppCompat.Dialog"
+            android:label="@string/confirmar_eliminacion_title" />
 
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

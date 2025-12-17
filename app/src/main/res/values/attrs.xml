@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes if needed -->
+    <declare-styleable name="CustomCardView">
+        <attr name="cardCornerRadius" format="dimension" />
+        <attr name="cardElevation" format="dimension" />
+        <attr name="cardBackgroundColor" format="color" />
+    </declare-styleable>
+</resources>

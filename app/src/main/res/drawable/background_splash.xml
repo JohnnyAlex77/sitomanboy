@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo sólido -->
+    <item android:drawable="@color/primary_color"/>
+
+    <!-- Logo centrado -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/logo_sito_man_boy"
+            android:width="200dp"
+            android:height="200dp" />
+    </item>
+
+    <!-- Texto de carga opcional -->
+    <item android:top="300dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sito Man Boy"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+    </item>
+</layer-list>

@@ -1,19 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Info -->
     <string name="app_name">Sito Man Boy</string>
-    <string name="app_description">Sistema de gestión de repuestos y sucursales</string>
-    <string name="btn_ingresar">Ingresar al Sistema</string>
-    <string name="logo_sito_man_boy">Logo Sito Man Boy</string>
-    <string name="modulo_repuestos">Módulo Repuestos</string>
-    <string name="modulo_sucursales">Módulo Sucursales</string>
-    <string name="crear_repuesto">Crear Repuesto</string>
-    <string name="lista_repuestos">Lista de Repuestos</string>
-    <string name="buscar_repuesto">Buscar Repuesto</string>
-    <string name="serie">Serie</string>
-    <string name="descripcion">Descripción</string>
-    <string name="stock">Stock</string>
-    <string name="crear">Crear</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="guardar">Guardar</string>
-    <string name="volver">Volver</string>
+    <string name="app_description">Sistema de Gestión de Repuestos Automotrices</string>
+
+    <!-- Main Screens -->
+    <string name="modules_title">Gestión de Inventario</string>
+    <string name="repuestos_title">Repuestos</string>
+    <string name="sucursales_title">Sucursales</string>
+    <string name="welcome_title">Bienvenido a Sito Man Boy</string>
+
+    <!-- Button Labels -->
+    <string name="btn_repuestos">Repuestos</string>
+    <string name="btn_sucursales">Sucursales</string>
+    <string name="btn_crear_repuesto">Crear Repuesto</string>
+    <string name="btn_crear_sucursal">Crear Sucursal</string>
+    <string name="btn_buscar_stock">Buscar Stock</string>
+    <string name="btn_ingresar_producto">Ingresar Producto a Sucursal</string>
+    <string name="btn_crear_nuevo">Crear Nuevo</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_modificar">Modificar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_volver">Volver</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="btn_confirmar">Confirmar</string>
+    <string name="btn_gestion_inventario">Gestionar Inventario</string>
+    <string name="btn_agregar_producto">Agregar Producto</string>
+    <string name="btn_eliminar_inventario">Eliminar del Inventario</string>
+    <string name="btn_buscar">Buscar</string>
+    <string name="btn_limpiar">Limpiar</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_rechazar">Rechazar</string>
+
+    <!-- Form Labels -->
+    <string name="label_serie">Código de Serie:</string>
+    <string name="label_descripcion">Descripción:</string>
+    <string name="label_stock">Stock:</string>
+    <string name="label_id">ID:</string>
+    <string name="label_codigo">Código de Sucursal:</string>
+    <string name="label_nombre">Nombre:</string>
+    <string name="label_direccion">Dirección:</string>
+    <string name="label_total_repuestos">Total de Productos:</string>
+    <string name="label_seleccionar_repuesto">Seleccionar Repuesto:</string>
+    <string name="label_cantidad">Cantidad:</string>
+    <string name="label_stock_actual">Stock Actual:</string>
+    <string name="label_nueva_cantidad">Nueva Cantidad:</string>
+    <string name="label_buscar_repuesto">Buscar Repuesto:</string>
+    <string name="label_buscar_sucursal">Buscar Sucursal:</string>
+    <string name="label_resultados">Resultados:</string>
+
+    <!-- Placeholders -->
+    <string name="hint_serie">Ingrese código de serie</string>
+    <string name="hint_descripcion">Ingrese descripción</string>
+    <string name="hint_stock">Ingrese cantidad en stock</string>
+    <string name="hint_codigo">Ingrese código de sucursal</string>
+    <string name="hint_nombre">Ingrese nombre de sucursal</string>
+    <string name="hint_direccion">Ingrese dirección</string>
+    <string name="hint_cantidad">Ingrese cantidad</string>
+    <string name="hint_nueva_cantidad">Ingrese nueva cantidad</string>
+    <string name="hint_buscar">Buscar...</string>
+
+    <!-- Search -->
+    <string name="search_hint">Buscar repuestos...</string>
+    <string name="search_sucursal_hint">Buscar sucursales...</string>
+    <string name="search_producto_hint">Buscar productos...</string>
+    <string name="search_stock_hint">Buscar por serie o nombre...</string>
+
+    <!-- Titles -->
+    <string name="crear_repuesto_title">Crear Repuesto</string>
+    <string name="lista_repuestos_title">Lista de Repuestos</string>
+    <string name="detalle_repuesto_title">Detalles del Repuesto</string>
+    <string name="modificar_repuesto_title">Modificar Repuesto</string>
+    <string name="confirmar_eliminacion_title">Confirmar Eliminación</string>
+    <string name="crear_sucursal_title">Crear Sucursal</string>
+    <string name="lista_sucursales_title">Lista de Sucursales</string>
+    <string name="detalle_sucursal_title">Detalles de Sucursal</string>
+    <string name="modificar_sucursal_title">Modificar Sucursal</string>
+    <string name="inventario_sucursal_title">Inventario de Sucursal</string>
+    <string name="agregar_producto_title">Agregar Producto a Sucursal</string>
+    <string name="modificar_stock_title">Modificar Stock</string>
+    <string name="buscar_stock_title">Buscar Stock</string>
+
+    <!-- Messages -->
+    <string name="msg_confirm_delete">¿Está seguro de eliminar este elemento?</string>
+    <string name="msg_confirm_delete_inventory">¿Está seguro de eliminar este producto del inventario?</string>
+    <string name="msg_required_field">Este campo es requerido</string>
+    <string name="msg_invalid_number">Ingrese un número válido</string>
+    <string name="msg_duplicate_code">Este código ya existe</string>
+    <string name="msg_success_save">Guardado exitosamente</string>
+    <string name="msg_success_update">Actualizado exitosamente</string>
+    <string name="msg_success_delete">Eliminado exitosamente</string>
+    <string name="msg_no_results">No se encontraron resultados</string>
+    <string name="msg_select_branch">Seleccione una sucursal primero</string>
+    <string name="msg_select_product">Seleccione un producto primero</string>
+    <string name="msg_stock_negative">El stock no puede ser negativo</string>
+    <string name="msg_operation_completed">Operación completada</string>
+    <string name="msg_loading">Cargando...</string>
+    <string name="msg_error">Ocurrió un error</string>
+    <string name="msg_connection_error">Error de conexión</string>
+
+    <!-- Validation -->
+    <string name="validation_required">Campo requerido</string>
+    <string name="validation_numeric">Debe ser un número</string>
+    <string name="validation_positive">Debe ser positivo</string>
+    <string name="validation_min_length">Mínimo %d caracteres</string>
+    <string name="validation_max_length">Máximo %d caracteres</string>
+
+    <!-- Stock Info -->
+    <string name="stock_info">Stock: %d unidades</string>
+    <string name="total_products_info">Total de Productos: %d</string>
+    <string name="branch_info">Sucursal: %s</string>
+    <string name="product_info">Producto: %s</string>
+    <string name="stock_by_branch">Stock por Sucursal</string>
+    <string name="available_stock">Stock Disponible</string>
+    <string name="out_of_stock">Sin Stock</string>
+
+    <!-- Empty States -->
+    <string name="empty_spare_parts">No hay repuestos disponibles</string>
+    <string name="empty_branches">No hay sucursales disponibles</string>
+    <string name="empty_inventory">No hay productos en el inventario</string>
+    <string name="empty_search_results">No hay resultados para tu búsqueda</string>
+
+    <!-- Menu Items -->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="menu_help">Ayuda</string>
+    <string name="menu_about">Acerca de</string>
+    <string name="menu_language">Idioma</string>
+
+    <!-- Dialog Titles -->
+    <string name="dialog_title_info">Información</string>
+    <string name="dialog_title_warning">Advertencia</string>
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_title_success">Éxito</string>
+
+    <!-- About -->
+    <string name="about_title">Acerca de Sito Man Boy</string>
+    <string name="about_version">Versión 1.0</string>
+    <string name="about_developer">Desarrollado por: Estudiante</string>
+    <string name="about_course">Curso: Aplicaciones Móviles IoT</string>
 </resources>

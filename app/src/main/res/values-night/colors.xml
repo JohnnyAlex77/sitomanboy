@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors (iguales para consistencia) -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_light">#64B5F6</color>
+    <color name="primary_dark">#1976D2</color>
+
+    <!-- Secondary Colors (iguales para consistencia) -->
+    <color name="secondary_color">#FF9800</color>
+    <color name="secondary_light">#FFB74D</color>
+    <color name="secondary_dark">#F57C00</color>
+
+    <!-- Dark Theme Background Colors -->
+    <color name="background_color">#121212</color>
+    <color name="surface_color">#1E1E1E</color>
+    <color name="background_dark">#000000</color>
+
+    <!-- Dark Theme Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="text_hint">#808080</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+
+    <!-- Dark Theme Status Colors (más suaves) -->
+    <color name="success_color">#66BB6A</color>
+    <color name="warning_color">#FFD54F</color>
+    <color name="danger_color">#EF5350</color>
+    <color name="info_color">#42A5F5</color>
+
+    <!-- Dark Theme Neutral Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_light">#2D2D2D</color>
+    <color name="gray_medium">#404040</color>
+    <color name="gray_dark">#616161</color>
+
+    <!-- Dark Theme Validation Colors -->
+    <color name="valid_color">#66BB6A</color>
+    <color name="invalid_color">#EF5350</color>
+    <color name="neutral_color">#404040</color>
+</resources>

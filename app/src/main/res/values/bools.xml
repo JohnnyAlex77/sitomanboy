@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="is_tablet">false</bool>
+    <bool name="enable_animations">true</bool>
+    <bool name="enable_logging">true</bool>
+    <bool name="enable_analytics">false</bool>
+</resources>

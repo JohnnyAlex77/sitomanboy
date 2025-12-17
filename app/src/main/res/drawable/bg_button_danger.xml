@@ -4,20 +4,7 @@
     <!-- Estado presionado -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary_dark" />
-            <corners android:radius="8dp" />
-            <padding
-                android:left="16dp"
-                android:top="12dp"
-                android:right="16dp"
-                android:bottom="12dp" />
-        </shape>
-    </item>
-
-    <!-- Estado deshabilitado -->
-    <item android:state_enabled="false">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/gray_medium" />
+            <solid android:color="@color/danger_color" />
             <corners android:radius="8dp" />
             <padding
                 android:left="16dp"
@@ -30,7 +17,7 @@
     <!-- Estado normal -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary_color" />
+            <solid android:color="@color/danger_color" />
             <corners android:radius="8dp" />
             <padding
                 android:left="16dp"

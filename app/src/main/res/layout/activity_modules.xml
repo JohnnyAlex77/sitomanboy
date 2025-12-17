@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/background_color">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/modules_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"
+        android:textColor="@color/primary_color"/>
+
+    <Button
+        android:id="@+id/btnRepuestos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_repuestos"
+        android:layout_marginVertical="8dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnSucursales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_sucursales"
+        android:layout_marginVertical="8dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnCrearRepuesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_crear_repuesto"
+        android:layout_marginVertical="8dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnCrearSucursal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_crear_sucursal"
+        android:layout_marginVertical="8dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnBuscarStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_buscar_stock"
+        android:layout_marginVertical="8dp"
+        android:padding="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"/>
 
 </LinearLayout>
