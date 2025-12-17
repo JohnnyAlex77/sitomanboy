@@ -23,7 +23,7 @@ class RepuestoActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnCrearRepuesto.setOnClickListener {
+        binding.btnCrearNuevo.setOnClickListener {
             val intent = Intent(this, CrearRepuestoActivity::class.java)
             startActivity(intent)
         }

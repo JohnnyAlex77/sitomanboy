@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.sitomanboy.databinding.ActivityModulesBinding
 import com.example.sitomanboy.repuesto.RepuestoActivity
 import com.example.sitomanboy.sucursal.SucursalActivity
+import com.example.sitomanboy.repuesto.CrearRepuestoActivity
+import com.example.sitomanboy.sucursal.CrearSucursalActivity
 
 class ModulesActivity : AppCompatActivity() {
 
@@ -20,13 +22,37 @@ class ModulesActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnModuloRepuestos.setOnClickListener {
+        // Configurar los 4 botones principales requeridos
+
+        // 1. Botón para ver repuestos
+        binding.btnRepuestos.setOnClickListener {
             val intent = Intent(this, RepuestoActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnModuloSucursales.setOnClickListener {
+        // 2. Botón para ver sucursales
+        binding.btnSucursales.setOnClickListener {
             val intent = Intent(this, SucursalActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 3. Botón para crear repuesto
+        binding.btnCrearRepuesto.setOnClickListener {
+            val intent = Intent(this, CrearRepuestoActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 4. Botón para crear sucursal
+        binding.btnCrearSucursal.setOnClickListener {
+            val intent = Intent(this, CrearSucursalActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Botón adicional para buscar stock (opcional)
+        binding.btnBuscarStock.setOnClickListener {
+            // Para cumplir con el requisito de "Buscar stock de repuestos"
+            // Puedes crear una actividad específica o usar la existente
+            val intent = Intent(this, RepuestoActivity::class.java)
             startActivity(intent)
         }
     }

@@ -38,7 +38,7 @@ class ConfirmarEliminacionActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnEliminar.setOnClickListener {
+        binding.btnConfirmar.setOnClickListener {
             eliminarElemento()
         }
     }

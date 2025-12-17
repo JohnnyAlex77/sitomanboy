@@ -32,9 +32,9 @@ class CrearRepuestoActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnCrear.isVisible = false
+        binding.btnGuardar.isVisible = false
 
-        binding.btnCrear.setOnClickListener {
+        binding.btnGuardar.setOnClickListener {
             crearRepuesto()
         }
 
@@ -98,7 +98,7 @@ class CrearRepuestoActivity : AppCompatActivity() {
     }
 
     private fun verificarCampos() {
-        binding.btnCrear.isVisible = serieValida && descripcionValida && stockValido
+        binding.btnGuardar.isVisible = serieValida && descripcionValida && stockValido
     }
 
     private fun crearRepuesto() {
