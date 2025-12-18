@@ -13,9 +13,7 @@ class InventarioAdapter(
 ) : ListAdapter<Repuesto, InventarioAdapter.InventarioViewHolder>(InventarioDiffCallback()) {
 
     interface OnInventarioClickListener {
-        fun onVerDetalleClick(repuesto: Repuesto)
         fun onModificarStockClick(repuesto: Repuesto)
-        fun onEliminarProductoClick(repuesto: Repuesto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventarioViewHolder {
@@ -37,32 +35,18 @@ class InventarioAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.btnVer.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onVerDetalleClick(getItem(position))
-                }
-            }
-
             binding.btnModificarStock.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onModificarStockClick(getItem(position))
                 }
             }
-
-            binding.btnEliminar.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onEliminarProductoClick(getItem(position))
-                }
-            }
         }
 
         fun bind(repuesto: Repuesto) {
-            binding.tvSerie.text = repuesto.serie
-            binding.tvDescripcion.text = repuesto.descripcion
-            binding.tvStock.text = "Stock: ${repuesto.stock} unidades"
+            binding.tvSerieRepuesto.text = repuesto.serie
+            binding.tvDescripcionRepuesto.text = repuesto.descripcion
+            binding.tvStockActual.text = repuesto.stock.toString()
         }
     }
 

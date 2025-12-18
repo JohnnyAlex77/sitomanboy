@@ -11,6 +11,7 @@
     <string name="welcome_title">Welcome to Sito Man Boy</string>
 
     <!-- Button Labels -->
+    <string name="btn_lista_sucursales">Ver Lista de Sucursales</string>
     <string name="btn_repuestos">Spare Parts</string>
     <string name="btn_sucursales">Branches</string>
     <string name="btn_crear_repuesto">Create Spare Part</string>
@@ -140,4 +141,18 @@
     <string name="about_version">Version 1.0</string>
     <string name="about_developer">Developed by: Student</string>
     <string name="about_course">Course: IoT Mobile Applications</string>
+
+    <!-- Para activity_main.xml -->
+    <string name="logo_sito_man_boy">Logo Sito Man Boy</string>
+    <string name="btn_ingresar">ENTER</string>
+
+    <!-- Para activity_modificar_stock.xml -->
+    <string name="label_nuevo_stock">New Stock</string>
+    <string name="hint_nuevo_stock">Enter new stock</string>
+
+    <!-- En su lugar, usar estas si necesitas botones específicos para el item_repuesto -->
+    <string name="btn_ver_detalle">View Details</string>
+    <string name="btn_modificar_item">Edit Item</string>
+    <string name="btn_eliminar_item">Delete Item</string>
+
 </resources>

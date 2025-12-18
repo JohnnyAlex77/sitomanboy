@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme -->
+    <!-- Base application theme (SOLO AQUÍ) -->
     <style name="Theme.SitoManBoy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/primary_color</item>
@@ -14,14 +14,30 @@
 
         <!-- Status bar -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:ignore="DuplicateDefinition">@color/primary_dark</item>
 
-        <!-- Customize your theme here -->
+        <!-- Background -->
         <item name="android:windowBackground">@color/background_color</item>
-        <item name="android:textColor">@color/text_primary</item>
 
-        <!-- Material Components -->
+        <!-- Typography -->
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+
+        <!-- Button styles -->
         <item name="materialButtonStyle">@style/Widget.SitoManBoy.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.SitoManBoy.Button.Outlined</item>
+
+        <!-- EditText styles -->
         <item name="editTextStyle">@style/Widget.SitoManBoy.EditText</item>
+
+        <!-- Custom attributes -->
+        <item name="cardViewStyle">@style/Widget.SitoManBoy.CardView</item>
+
+        <!-- Spinner style -->
+        <item name="spinnerStyle">@style/Widget.SitoManBoy.Spinner</item>
+
+        <!-- Toolbar -->
+        <item name="toolbarStyle">@style/Widget.SitoManBoy.Toolbar</item>
 
         <!-- AppCompat compatibility -->
         <item name="actionBarStyle">@style/Widget.SitoManBoy.ActionBar</item>
@@ -34,11 +50,13 @@
         <item name="subtitleTextColor">@color/white</item>
     </style>
 
-    <!-- Dialog theme -->
+    <!-- Dialog theme overlay (para diálogos) -->
     <style name="ThemeOverlay.SitoManBoy.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="android:windowBackground">@drawable/bg_dialog</item>
         <item name="android:windowMinWidthMajor">90%</item>
         <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
     <!-- NoActionBar theme for activities without toolbar -->

@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme -->
-    <style name="Theme.SitoManBoy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color -->
-        <item name="colorPrimary">@color/primary_color</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-        <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/secondary_color</item>
-        <item name="colorSecondaryVariant">@color/secondary_dark</item>
-        <item name="colorOnSecondary">@color/white</item>
-
-        <!-- Status bar -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-
-        <!-- Background -->
-        <item name="android:windowBackground">@color/background_color</item>
-
-        <!-- Typography -->
-        <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textColorHint">@color/text_hint</item>
-
-        <!-- Button styles -->
-        <item name="materialButtonStyle">@style/Widget.SitoManBoy.Button</item>
-        <item name="materialButtonOutlinedStyle">@style/Widget.SitoManBoy.Button.Outlined</item>
-
-        <!-- EditText styles -->
-        <item name="editTextStyle">@style/Widget.SitoManBoy.EditText</item>
-
-        <!-- Custom attributes -->
-        <item name="cardViewStyle">@style/Widget.SitoManBoy.CardView</item>
-    </style>
+    <!-- NOTA: EL TEMA PRINCIPAL Theme.SitoManBoy SE MUEVE A themes.xml -->
+    <!-- Este archivo contiene solo ESTILOS DE WIDGETS -->
 
     <!-- Splash screen theme -->
     <style name="Theme.SitoManBoy.Splash" parent="Theme.SitoManBoy">

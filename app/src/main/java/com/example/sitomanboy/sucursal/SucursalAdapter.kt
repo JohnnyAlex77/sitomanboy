@@ -38,46 +38,25 @@ class SucursalAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.btnVer.setOnClickListener {
+            itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onVerClick(getItem(position))
                 }
             }
-
-            binding.btnModificar.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onModificarClick(getItem(position))
-                }
-            }
-
-            binding.btnEliminar.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onEliminarClick(getItem(position))
-                }
-            }
-
-            binding.btnInventario.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener.onInventarioClick(getItem(position))
-                }
-            }
         }
 
         fun bind(sucursal: Sucursal) {
-            binding.tvCodigo.text = sucursal.codigo
-            binding.tvNombre.text = sucursal.nombre
-            binding.tvDireccion.text = sucursal.direccion
+            binding.tvNombreSucursal.text = sucursal.nombre
+            binding.tvCodigoSucursal.text = "Código: ${sucursal.codigo}"
+            binding.tvDireccionSucursal.text = sucursal.direccion
 
             // Mostrar estadísticas del inventario
             val repuestos = sucursal.obtenerRepuestos()
             val totalRepuestos = repuestos.size
             val totalStock = repuestos.sumOf { it.stock }
 
-            binding.tvEstadisticas.text = "$totalRepuestos productos • $totalStock unidades"
+            binding.tvTotalProductos.text = "Productos: $totalRepuestos • Stock: $totalStock"
         }
     }
 

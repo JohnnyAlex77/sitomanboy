@@ -85,6 +85,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:padding="8dp"
+            android:background="@drawable/bg_info"/>
+
+        <!-- NUEVO: TextView para stock total -->
+        <TextView
+            android:id="@+id/tvTotalStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginBottom="24dp"
             android:padding="8dp"
             android:background="@drawable/bg_info"/>

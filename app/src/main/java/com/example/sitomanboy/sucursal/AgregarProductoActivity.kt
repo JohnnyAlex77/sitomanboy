@@ -6,14 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.sitomanboy.R
-import com.example.sitomanboy.databinding.ActivityAgregarProductoBinding
+import com.example.sitomanboy.databinding.ActivityAgregarRepuestoBinding
 import com.example.sitomanboy.model.Repuesto
 import com.example.sitomanboy.viewmodel.RepuestoViewModel
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
 class AgregarProductoActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAgregarProductoBinding
+    private lateinit var binding: ActivityAgregarRepuestoBinding  // ¡NOMBRE CORREGIDO!
     private lateinit var sucursalViewModel: SucursalViewModel
     private lateinit var repuestoViewModel: RepuestoViewModel
     private lateinit var codigoSucursal: String
@@ -21,7 +21,7 @@ class AgregarProductoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAgregarProductoBinding.inflate(layoutInflater)
+        binding = ActivityAgregarRepuestoBinding.inflate(layoutInflater)  // ¡NOMBRE CORREGIDO!
         setContentView(binding.root)
 
         sucursalViewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
@@ -49,11 +49,9 @@ class AgregarProductoActivity : AppCompatActivity() {
                     val repuestos = repuestoViewModel.repuestos.value ?: emptyList()
                     if (position - 1 < repuestos.size) {
                         repuestoSeleccionado = repuestos[position - 1]
-                        binding.etStock.isEnabled = true
                     }
                 } else {
                     repuestoSeleccionado = null
-                    binding.etStock.isEnabled = false
                 }
             }
 
@@ -81,7 +79,7 @@ class AgregarProductoActivity : AppCompatActivity() {
     }
 
     private fun agregarProductoASucursal() {
-        val stockText = binding.etStock.text.toString().trim()
+        val stockText = binding.etCantidad.text.toString().trim()
 
         if (repuestoSeleccionado == null) {
             Toast.makeText(this, "Seleccione un repuesto", Toast.LENGTH_SHORT).show()

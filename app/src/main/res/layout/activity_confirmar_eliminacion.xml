@@ -8,17 +8,6 @@
     android:background="@color/background_color">
 
     <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/confirmar_eliminacion_title"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/danger_color"/>
-
-    <TextView
         android:id="@+id/tvMensaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

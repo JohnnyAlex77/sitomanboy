@@ -1,26 +1,23 @@
 package com.example.sitomanboy.repuesto
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.sitomanboy.databinding.ActivityDetalleRepuestoBinding
-import com.example.sitomanboy.viewmodel.RepuestoViewModel
+import com.example.sitomanboy.model.Repuesto
 
 class DetalleRepuestoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalleRepuestoBinding
-    private lateinit var viewModel: RepuestoViewModel
+    private lateinit var repuesto: Repuesto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleRepuestoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[RepuestoViewModel::class.java]
-
-        val repuestoId = intent.getIntExtra("repuesto_id", 0)
-        cargarRepuesto(repuestoId)
-
+        repuesto = intent.getSerializableExtra("repuesto") as Repuesto
+        cargarRepuesto()
         setupUI()
     }
 
@@ -28,15 +25,27 @@ class DetalleRepuestoActivity : AppCompatActivity() {
         binding.btnVolver.setOnClickListener {
             finish()
         }
+
+        binding.btnModificar.setOnClickListener {
+            val intent = Intent(this, ModificarRepuestoActivity::class.java).apply {
+                putExtra("repuesto", repuesto)
+            }
+            startActivity(intent)
+        }
+
+        binding.btnEliminar.setOnClickListener {
+            val intent = Intent(this, ConfirmarEliminacionActivity::class.java).apply {
+                putExtra("repuesto", repuesto)
+                putExtra("tipo", "repuesto")
+            }
+            startActivity(intent)
+        }
     }
 
-    private fun cargarRepuesto(id: Int) {
-        val repuesto = viewModel.obtenerRepuestoPorId(id)
-        repuesto?.let {
-            binding.tvSerie.text = it.serie
-            binding.tvDescripcion.text = it.descripcion
-            binding.tvStock.text = it.stock.toString()
-            binding.tvId.text = it.id.toString()
-        }
+    private fun cargarRepuesto() {
+        binding.tvId.text = repuesto.id.toString()
+        binding.tvSerie.text = repuesto.serie
+        binding.tvDescripcion.text = repuesto.descripcion
+        binding.tvStock.text = repuesto.stock.toString()
     }
 }

@@ -5,18 +5,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityInventarioSucursalBinding
 import com.example.sitomanboy.model.Repuesto
 import com.example.sitomanboy.model.Sucursal
-import com.example.sitomanboy.viewmodel.RepuestoViewModel
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
 class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInventarioClickListener {
 
     private lateinit var binding: ActivityInventarioSucursalBinding
     private lateinit var sucursalViewModel: SucursalViewModel
-    private lateinit var repuestoViewModel: RepuestoViewModel
     private lateinit var adapter: InventarioAdapter
     private lateinit var sucursal: Sucursal
 
@@ -26,7 +23,6 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
         setContentView(binding.root)
 
         sucursalViewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
-        repuestoViewModel = ViewModelProvider(this)[RepuestoViewModel::class.java]
 
         val codigoSucursal = intent.getStringExtra("sucursal_codigo") ?: ""
         cargarSucursal(codigoSucursal)
@@ -34,13 +30,14 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
         setupUI()
         setupRecyclerView()
         actualizarEstadisticas()
+        setupSearchView()
     }
 
     private fun cargarSucursal(codigo: String) {
         val sucursalCargada = sucursalViewModel.obtenerSucursalPorCodigo(codigo)
         sucursalCargada?.let {
             sucursal = it
-            binding.tvTitulo.text = "Inventario: ${it.nombre}"
+            binding.tvTituloSucursal.text = "Inventario: ${it.nombre}"
         }
     }
 
@@ -51,40 +48,41 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
             }
             startActivityForResult(intent, 1)
         }
-
-        binding.btnVolver.setOnClickListener {
-            finish()
-        }
-
-        binding.btnBuscarInventario.setOnClickListener {
-            val termino = binding.etBuscarInventario.text.toString().trim()
-            if (termino.isNotEmpty()) {
-                buscarEnInventario(termino)
-            }
-        }
     }
 
     private fun setupRecyclerView() {
         adapter = InventarioAdapter(this)
-        binding.rvInventario.layoutManager = LinearLayoutManager(this)
-        binding.rvInventario.adapter = adapter
+        binding.recyclerViewInventario.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewInventario.adapter = adapter
 
         // Cargar inventario inicial
         val inventario = sucursal.obtenerRepuestos()
         adapter.submitList(inventario)
     }
 
+    private fun setupSearchView() {
+        binding.searchViewInventario.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    buscarEnInventario(newText)
+                } else {
+                    // Mostrar todo el inventario si la búsqueda está vacía
+                    val inventarioCompleto = sucursal.obtenerRepuestos()
+                    adapter.submitList(inventarioCompleto)
+                }
+                return true
+            }
+        })
+    }
+
     private fun actualizarEstadisticas() {
         val inventario = sucursal.obtenerRepuestos()
         val totalProductos = inventario.size
-        val totalStock = inventario.sumOf { it.stock }
-        val valorAproximado = inventario.sumOf { it.stock * 100 } // Ejemplo: cada unidad vale 100
-
-        binding.tvEstadisticas.text = """
-            Productos distintos: $totalProductos
-            Stock total: $totalStock unidades
-            Valor aproximado: $${valorAproximado}
-        """.trimIndent()
+        binding.tvTotalProductos.text = "Productos en inventario: $totalProductos"
     }
 
     private fun buscarEnInventario(termino: String) {
@@ -100,20 +98,11 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
             // Recargar inventario después de agregar producto
+            cargarSucursal(sucursal.codigo) // Recargar sucursal
             val inventarioActual = sucursal.obtenerRepuestos()
             adapter.submitList(inventarioActual)
             actualizarEstadisticas()
         }
-    }
-
-    override fun onVerDetalleClick(repuesto: Repuesto) {
-        // Podrías mostrar un diálogo con detalles del repuesto en esta sucursal
-        // Por ahora, solo mostramos un mensaje
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Detalle del Repuesto")
-            .setMessage("Serie: ${repuesto.serie}\nDescripción: ${repuesto.descripcion}\nStock en esta sucursal: ${repuesto.stock}")
-            .setPositiveButton("OK", null)
-            .show()
     }
 
     override fun onModificarStockClick(repuesto: Repuesto) {
@@ -123,14 +112,5 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
             putExtra("stock_actual", repuesto.stock)
         }
         startActivityForResult(intent, 2)
-    }
-
-    override fun onEliminarProductoClick(repuesto: Repuesto) {
-        val intent = Intent(this, ConfirmarEliminacionSucursalActivity::class.java).apply {
-            putExtra("sucursal_codigo", sucursal.codigo)
-            putExtra("repuesto_id", repuesto.id)
-            putExtra("tipo", "producto_sucursal")
-        }
-        startActivityForResult(intent, 3)
     }
 }

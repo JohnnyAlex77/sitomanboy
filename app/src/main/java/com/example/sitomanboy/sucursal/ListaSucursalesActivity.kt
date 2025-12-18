@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityListaSucursalesBinding
 import com.example.sitomanboy.model.Sucursal
-import com.example.sitomanboy.repuesto.RepuestoActivity
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
-class ListaSucursalesActivity : AppCompatActivity(), SucursalAdapter.OnSucursalClickListener {
+class ListaSucursalesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListaSucursalesBinding
     private lateinit var viewModel: SucursalViewModel
@@ -25,7 +23,6 @@ class ListaSucursalesActivity : AppCompatActivity(), SucursalAdapter.OnSucursalC
 
         viewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
 
-        setupUI()
         setupRecyclerView()
         observarSucursales()
 
@@ -36,19 +33,38 @@ class ListaSucursalesActivity : AppCompatActivity(), SucursalAdapter.OnSucursalC
         }
     }
 
-    private fun setupUI() {
-        binding.btnVolver.setOnClickListener {
-            finish()
-        }
-
-        binding.btnNuevaSucursal.setOnClickListener {
-            val intent = Intent(this, CrearSucursalActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
     private fun setupRecyclerView() {
-        adapter = SucursalAdapter(this)
+        adapter = SucursalAdapter(object : SucursalAdapter.OnSucursalClickListener {
+            override fun onVerClick(sucursal: Sucursal) {
+                val intent = Intent(this@ListaSucursalesActivity, DetalleSucursalActivity::class.java).apply {
+                    putExtra("sucursal_codigo", sucursal.codigo)
+                }
+                startActivity(intent)
+            }
+
+            override fun onModificarClick(sucursal: Sucursal) {
+                val intent = Intent(this@ListaSucursalesActivity, ModificarSucursalActivity::class.java).apply {
+                    putExtra("sucursal", sucursal)
+                }
+                startActivity(intent)
+            }
+
+            override fun onEliminarClick(sucursal: Sucursal) {
+                val intent = Intent(this@ListaSucursalesActivity, ConfirmarEliminacionSucursalActivity::class.java).apply {
+                    putExtra("sucursal_codigo", sucursal.codigo)
+                    putExtra("tipo", "sucursal")
+                }
+                startActivityForResult(intent, 1)
+            }
+
+            override fun onInventarioClick(sucursal: Sucursal) {
+                val intent = Intent(this@ListaSucursalesActivity, InventarioSucursalActivity::class.java).apply {
+                    putExtra("sucursal_codigo", sucursal.codigo)
+                }
+                startActivity(intent)
+            }
+        })
+
         binding.rvSucursales.layoutManager = LinearLayoutManager(this)
         binding.rvSucursales.adapter = adapter
     }
@@ -56,50 +72,12 @@ class ListaSucursalesActivity : AppCompatActivity(), SucursalAdapter.OnSucursalC
     private fun observarSucursales() {
         viewModel.sucursales.observe(this, Observer { sucursales ->
             adapter.submitList(sucursales)
-
-            // Actualizar contador
-            binding.tvContador.text = "Total: ${sucursales.size} sucursales"
         })
     }
 
     private fun realizarBusqueda(termino: String) {
-        val sucursales = viewModel.sucursales.value ?: emptyList()
-        val resultados = sucursales.filter {
-            it.codigo.contains(termino, ignoreCase = true) ||
-                    it.nombre.contains(termino, ignoreCase = true) ||
-                    it.direccion.contains(termino, ignoreCase = true)
-        }
+        val resultados = viewModel.buscarSucursales(termino)
         adapter.submitList(resultados)
-        binding.tvTitulo.text = "Resultados de búsqueda: $termino"
-    }
-
-    override fun onVerClick(sucursal: Sucursal) {
-        val intent = Intent(this, DetalleSucursalActivity::class.java).apply {
-            putExtra("sucursal_codigo", sucursal.codigo)
-        }
-        startActivity(intent)
-    }
-
-    override fun onModificarClick(sucursal: Sucursal) {
-        val intent = Intent(this, ModificarSucursalActivity::class.java).apply {
-            putExtra("sucursal", sucursal)
-        }
-        startActivity(intent)
-    }
-
-    override fun onEliminarClick(sucursal: Sucursal) {
-        val intent = Intent(this, ConfirmarEliminacionSucursalActivity::class.java).apply {
-            putExtra("sucursal_codigo", sucursal.codigo)
-            putExtra("tipo", "sucursal")
-        }
-        startActivityForResult(intent, 1)
-    }
-
-    override fun onInventarioClick(sucursal: Sucursal) {
-        val intent = Intent(this, InventarioSucursalActivity::class.java).apply {
-            putExtra("sucursal_codigo", sucursal.codigo)
-        }
-        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

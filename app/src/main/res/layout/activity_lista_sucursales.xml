@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:padding="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewListaSucursales"
+    <!-- Header con título -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_sucursales"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_volver"
+            android:background="@drawable/bg_button_secondary"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+    <!-- Botón para nueva sucursal -->
+    <Button
+        android:id="@+id/btnNuevaSucursal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_crear_sucursal"
+        android:background="@drawable/bg_button"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
+
+    <!-- Contador de sucursales -->
+    <TextView
+        android:id="@+id/tvContador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:background="@drawable/bg_info"/>
+
+    <!-- RecyclerView para la lista -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSucursales"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbars="vertical"
-        android:padding="8dp"/>
+        tools:listitem="@layout/item_sucursal"/>
 
 </LinearLayout>

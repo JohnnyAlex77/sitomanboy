@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivitySucursalBinding
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
@@ -34,18 +33,21 @@ class SucursalActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnBuscarStock.setOnClickListener {
-            val termino = binding.etBuscarSucursal.text.toString().trim()
-            if (termino.isNotEmpty()) {
-                val intent = Intent(this, ListaSucursalesActivity::class.java).apply {
-                    putExtra("busqueda", termino)
+        // Configurar SearchView
+        binding.searchViewSucursales.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    val intent = Intent(this@SucursalActivity, ListaSucursalesActivity::class.java).apply {
+                        putExtra("busqueda", query)
+                    }
+                    startActivity(intent)
                 }
-                startActivity(intent)
+                return true
             }
-        }
 
-        binding.btnVolver.setOnClickListener {
-            finish()
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 }

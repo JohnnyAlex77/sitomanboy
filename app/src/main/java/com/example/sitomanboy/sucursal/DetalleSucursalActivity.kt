@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityDetalleSucursalBinding
 import com.example.sitomanboy.model.Sucursal
 import com.example.sitomanboy.viewmodel.SucursalViewModel
@@ -33,16 +32,24 @@ class DetalleSucursalActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnVerInventario.setOnClickListener {
+        binding.btnGestionInventario.setOnClickListener {
             val intent = Intent(this, InventarioSucursalActivity::class.java).apply {
                 putExtra("sucursal_codigo", sucursal.codigo)
             }
             startActivity(intent)
         }
 
-        binding.btnModificar.setOnClickListener {
+        binding.btnModificarSucursal.setOnClickListener {
             val intent = Intent(this, ModificarSucursalActivity::class.java).apply {
                 putExtra("sucursal", sucursal)
+            }
+            startActivity(intent)
+        }
+
+        binding.btnEliminarSucursal.setOnClickListener {
+            val intent = Intent(this, ConfirmarEliminacionSucursalActivity::class.java).apply {
+                putExtra("sucursal_codigo", sucursal.codigo)
+                putExtra("tipo", "sucursal")
             }
             startActivity(intent)
         }
@@ -59,10 +66,8 @@ class DetalleSucursalActivity : AppCompatActivity() {
             // Calcular estadísticas
             val repuestos = it.obtenerRepuestos()
             val totalRepuestos = repuestos.size
-            val totalStock = repuestos.sumOf { repuesto -> repuesto.stock }
 
-            binding.tvTotalRepuestos.text = "Repuestos en inventario: $totalRepuestos"
-            binding.tvTotalStock.text = "Stock total: $totalStock unidades"
+            binding.tvTotalRepuestos.text = "Total repuestos: $totalRepuestos"
         }
     }
 }

@@ -1,12 +1,9 @@
 package com.example.sitomanboy.sucursal
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityModificarStockBinding
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
@@ -33,42 +30,21 @@ class ModificarStockActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.tvStockActual.text = "Stock actual: $stockActual"
-        binding.etNuevoStock.setText(stockActual.toString())
+        // No hay tvStockActual en el layout, así que lo comentamos
+        // binding.tvStockActual.text = "Stock actual: $stockActual"
+        binding.etStock.setText(stockActual.toString())
 
-        binding.btnGuardar.setOnClickListener {
+        binding.btnActualizar.setOnClickListener {
             modificarStock()
         }
 
         binding.btnCancelar.setOnClickListener {
             finish()
         }
-
-        // Validación del nuevo stock
-        binding.etNuevoStock.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                val texto = s.toString().trim()
-                val esValido = try {
-                    texto.toInt() >= 0
-                } catch (e: NumberFormatException) {
-                    false
-                }
-
-                if (esValido) {
-                    binding.etNuevoStock.setBackgroundResource(R.drawable.bg_edittext_valid)
-                } else {
-                    binding.etNuevoStock.setBackgroundResource(R.drawable.bg_edittext_invalid)
-                }
-            }
-        })
     }
 
     private fun modificarStock() {
-        val nuevoStockText = binding.etNuevoStock.text.toString().trim()
+        val nuevoStockText = binding.etStock.text.toString().trim()
 
         if (nuevoStockText.isEmpty()) {
             Toast.makeText(this, "Ingrese el nuevo stock", Toast.LENGTH_SHORT).show()

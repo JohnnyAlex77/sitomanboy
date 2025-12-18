@@ -11,6 +11,7 @@
     <string name="welcome_title">Bienvenido a Sito Man Boy</string>
 
     <!-- Button Labels -->
+    <string name="btn_lista_sucursales">Ver Lista de Sucursales</string>
     <string name="btn_repuestos">Repuestos</string>
     <string name="btn_sucursales">Sucursales</string>
     <string name="btn_crear_repuesto">Crear Repuesto</string>
@@ -32,6 +33,10 @@
     <string name="btn_limpiar">Limpiar</string>
     <string name="btn_aceptar">Aceptar</string>
     <string name="btn_rechazar">Rechazar</string>
+    <string name="btn_ingresar">INGRESAR</string>
+    <string name="btn_ver_detalle">Ver Detalles</string>
+    <string name="btn_modificar_item">Editar Item</string>
+    <string name="btn_eliminar_item">Eliminar Item</string>
 
     <!-- Form Labels -->
     <string name="label_serie">Código de Serie:</string>
@@ -49,6 +54,7 @@
     <string name="label_buscar_repuesto">Buscar Repuesto:</string>
     <string name="label_buscar_sucursal">Buscar Sucursal:</string>
     <string name="label_resultados">Resultados:</string>
+    <string name="label_nuevo_stock">Nuevo Stock</string>
 
     <!-- Placeholders -->
     <string name="hint_serie">Ingrese código de serie</string>
@@ -60,6 +66,7 @@
     <string name="hint_cantidad">Ingrese cantidad</string>
     <string name="hint_nueva_cantidad">Ingrese nueva cantidad</string>
     <string name="hint_buscar">Buscar...</string>
+    <string name="hint_nuevo_stock">Ingrese nuevo stock</string>
 
     <!-- Search -->
     <string name="search_hint">Buscar repuestos...</string>
@@ -140,4 +147,8 @@
     <string name="about_version">Versión 1.0</string>
     <string name="about_developer">Desarrollado por: Estudiante</string>
     <string name="about_course">Curso: Aplicaciones Móviles IoT</string>
+
+    <!-- Para activity_main.xml -->
+    <string name="logo_sito_man_boy">Logo Sito Man Boy</string>
+
 </resources>

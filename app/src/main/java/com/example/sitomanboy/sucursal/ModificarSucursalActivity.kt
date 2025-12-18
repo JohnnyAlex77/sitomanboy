@@ -1,14 +1,11 @@
 package com.example.sitomanboy.sucursal
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityModificarSucursalBinding
 import com.example.sitomanboy.model.Sucursal
 import com.example.sitomanboy.viewmodel.SucursalViewModel
@@ -18,9 +15,6 @@ class ModificarSucursalActivity : AppCompatActivity() {
     private lateinit var binding: ActivityModificarSucursalBinding
     private lateinit var viewModel: SucursalViewModel
     private lateinit var sucursalOriginal: Sucursal
-    private var codigoValido = false
-    private var nombreValido = false
-    private var direccionValida = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,31 +22,20 @@ class ModificarSucursalActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
-
         sucursalOriginal = intent.getSerializableExtra("sucursal") as Sucursal
 
         cargarDatosSucursal()
         setupUI()
-        setupValidaciones()
     }
 
     private fun cargarDatosSucursal() {
-        binding.etCodigo.setText(sucursalOriginal.codigo)
-        binding.etCodigo.isEnabled = false // No se puede modificar el código
-
+        binding.tvCodigo.text = sucursalOriginal.codigo
         binding.etNombre.setText(sucursalOriginal.nombre)
         binding.etDireccion.setText(sucursalOriginal.direccion)
-
-        codigoValido = true
-        nombreValido = true
-        direccionValida = true
-        verificarCampos()
     }
 
     private fun setupUI() {
-        binding.btnGuardar.isVisible = true
-
-        binding.btnGuardar.setOnClickListener {
+        binding.btnActualizarSucursal.setOnClickListener {
             guardarCambios()
         }
 
@@ -61,50 +44,16 @@ class ModificarSucursalActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupValidaciones() {
-        // Validación de nombre
-        binding.etNombre.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                nombreValido = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etNombre, nombreValido)
-                verificarCampos()
-            }
-        })
-
-        // Validación de dirección
-        binding.etDireccion.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                direccionValida = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etDireccion, direccionValida)
-                verificarCampos()
-            }
-        })
-    }
-
-    private fun actualizarColorCampo(campo: android.widget.EditText, esValido: Boolean) {
-        if (esValido) {
-            campo.setBackgroundResource(R.drawable.bg_edittext_valid)
-        } else {
-            campo.setBackgroundResource(R.drawable.bg_edittext_invalid)
-        }
-    }
-
-    private fun verificarCampos() {
-        binding.btnGuardar.isVisible = nombreValido && direccionValida
-    }
-
     private fun guardarCambios() {
         val codigo = sucursalOriginal.codigo // No cambia
         val nombre = binding.etNombre.text.toString().trim()
         val direccion = binding.etDireccion.text.toString().trim()
+
+        // Validaciones
+        if (nombre.isEmpty() || direccion.isEmpty()) {
+            Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val sucursalActualizada = sucursalOriginal.copy(
             nombre = nombre,

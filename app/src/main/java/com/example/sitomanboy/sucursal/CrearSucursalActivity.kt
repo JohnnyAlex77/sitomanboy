@@ -1,6 +1,5 @@
 package com.example.sitomanboy.sucursal
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.sitomanboy.R
-import com.example.sitomanboy.databinding.ActivityCrearSucursalBinding
+import com.example.sitomanboy.databinding.ActivityCrearSucursalBinding  // Asegúrate que el layout se llama así
 import com.example.sitomanboy.model.Sucursal
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
@@ -33,9 +32,9 @@ class CrearSucursalActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnCrear.isVisible = false
+        binding.btnGuardarSucursal.isVisible = false
 
-        binding.btnCrear.setOnClickListener {
+        binding.btnGuardarSucursal.setOnClickListener {
             crearSucursal()
         }
 
@@ -48,12 +47,9 @@ class CrearSucursalActivity : AppCompatActivity() {
         // Validación de código
         binding.etCodigo.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun afterTextChanged(s: Editable?) {
                 codigoValido = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etCodigo, codigoValido)
                 verificarCampos()
             }
         })
@@ -61,12 +57,9 @@ class CrearSucursalActivity : AppCompatActivity() {
         // Validación de nombre
         binding.etNombre.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun afterTextChanged(s: Editable?) {
                 nombreValido = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etNombre, nombreValido)
                 verificarCampos()
             }
         })
@@ -74,27 +67,16 @@ class CrearSucursalActivity : AppCompatActivity() {
         // Validación de dirección
         binding.etDireccion.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun afterTextChanged(s: Editable?) {
                 direccionValida = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etDireccion, direccionValida)
                 verificarCampos()
             }
         })
     }
 
-    private fun actualizarColorCampo(campo: android.widget.EditText, esValido: Boolean) {
-        if (esValido) {
-            campo.setBackgroundResource(R.drawable.bg_edittext_valid)
-        } else {
-            campo.setBackgroundResource(R.drawable.bg_edittext_invalid)
-        }
-    }
-
     private fun verificarCampos() {
-        binding.btnCrear.isVisible = codigoValido && nombreValido && direccionValida
+        binding.btnGuardarSucursal.isVisible = codigoValido && nombreValido && direccionValida
     }
 
     private fun crearSucursal() {
@@ -106,7 +88,6 @@ class CrearSucursalActivity : AppCompatActivity() {
         val sucursalExistente = viewModel.obtenerSucursalPorCodigo(codigo)
         if (sucursalExistente != null) {
             Toast.makeText(this, "Ya existe una sucursal con este código", Toast.LENGTH_SHORT).show()
-            binding.etCodigo.setBackgroundResource(R.drawable.bg_edittext_invalid)
             return
         }
 
@@ -116,6 +97,7 @@ class CrearSucursalActivity : AppCompatActivity() {
             direccion = direccion
         )
 
+        // El método agregarSucursal no retorna valor
         viewModel.agregarSucursal(sucursal)
 
         Toast.makeText(this, "Sucursal creada exitosamente", Toast.LENGTH_SHORT).show()

@@ -10,7 +10,7 @@ import com.example.sitomanboy.databinding.ActivityListaRepuestosBinding
 import com.example.sitomanboy.model.Repuesto
 import com.example.sitomanboy.viewmodel.RepuestoViewModel
 
-class ListaRepuestosActivity : AppCompatActivity(), RepuestoAdapter.OnRepuestoClickListener {
+class ListaRepuestosActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListaRepuestosBinding
     private lateinit var viewModel: RepuestoViewModel
@@ -23,7 +23,6 @@ class ListaRepuestosActivity : AppCompatActivity(), RepuestoAdapter.OnRepuestoCl
 
         viewModel = ViewModelProvider(this)[RepuestoViewModel::class.java]
 
-        setupUI()
         setupRecyclerView()
         observarRepuestos()
 
@@ -34,21 +33,33 @@ class ListaRepuestosActivity : AppCompatActivity(), RepuestoAdapter.OnRepuestoCl
         }
     }
 
-    private fun setupUI() {
-        binding.btnVolver.setOnClickListener {
-            finish()
-        }
-
-        binding.btnNuevoRepuesto.setOnClickListener {
-            val intent = Intent(this, CrearRepuestoActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
     private fun setupRecyclerView() {
-        adapter = RepuestoAdapter(this)
-        binding.rvRepuestos.layoutManager = LinearLayoutManager(this)
-        binding.rvRepuestos.adapter = adapter
+        adapter = RepuestoAdapter(object : RepuestoAdapter.OnRepuestoClickListener {
+            override fun onVerClick(repuesto: Repuesto) {
+                val intent = Intent(this@ListaRepuestosActivity, DetalleRepuestoActivity::class.java).apply {
+                    putExtra("repuesto", repuesto)  // Enviar el objeto completo
+                }
+                startActivity(intent)
+            }
+
+            override fun onModificarClick(repuesto: Repuesto) {
+                val intent = Intent(this@ListaRepuestosActivity, ModificarRepuestoActivity::class.java).apply {
+                    putExtra("repuesto", repuesto)
+                }
+                startActivity(intent)
+            }
+
+            override fun onEliminarClick(repuesto: Repuesto) {
+                val intent = Intent(this@ListaRepuestosActivity, ConfirmarEliminacionActivity::class.java).apply {
+                    putExtra("repuesto", repuesto)  // Enviar el objeto completo
+                    putExtra("tipo", "repuesto")
+                }
+                startActivity(intent)
+            }
+        })
+
+        binding.recyclerViewListaRepuestos.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewListaRepuestos.adapter = adapter
     }
 
     private fun observarRepuestos() {
@@ -60,28 +71,5 @@ class ListaRepuestosActivity : AppCompatActivity(), RepuestoAdapter.OnRepuestoCl
     private fun realizarBusqueda(termino: String) {
         val resultados = viewModel.buscarRepuestos(termino)
         adapter.submitList(resultados)
-        binding.tvTitulo.text = "Resultados de búsqueda: $termino"
-    }
-
-    override fun onVerClick(repuesto: Repuesto) {
-        val intent = Intent(this, DetalleRepuestoActivity::class.java).apply {
-            putExtra("repuesto_id", repuesto.id)
-        }
-        startActivity(intent)
-    }
-
-    override fun onModificarClick(repuesto: Repuesto) {
-        val intent = Intent(this, ModificarRepuestoActivity::class.java).apply {
-            putExtra("repuesto", repuesto)
-        }
-        startActivity(intent)
-    }
-
-    override fun onEliminarClick(repuesto: Repuesto) {
-        val intent = Intent(this, ConfirmarEliminacionActivity::class.java).apply {
-            putExtra("repuesto_id", repuesto.id)
-            putExtra("tipo", "repuesto")
-        }
-        startActivity(intent)
     }
 }

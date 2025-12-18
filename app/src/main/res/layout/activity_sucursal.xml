@@ -40,4 +40,13 @@
         android:background="@drawable/bg_button"
         android:textAllCaps="false"/>
 
+    <Button
+        android:id="@+id/btnListaSucursales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_lista_sucursales"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false"/>
+
 </LinearLayout>

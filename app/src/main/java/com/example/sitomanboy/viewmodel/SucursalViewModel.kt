@@ -11,6 +11,16 @@ class SucursalViewModel : ViewModel() {
     private val _sucursales = MutableLiveData<MutableList<Sucursal>>(mutableListOf())
     val sucursales: LiveData<MutableList<Sucursal>> = _sucursales
 
+    // ✅ NUEVO MÉTODO AGREGADO - Para buscar sucursales
+    fun buscarSucursales(termino: String): List<Sucursal> {
+        val listaActual = _sucursales.value ?: emptyList()
+        return listaActual.filter { sucursal ->
+            sucursal.codigo.contains(termino, ignoreCase = true) ||
+                    sucursal.nombre.contains(termino, ignoreCase = true) ||
+                    sucursal.direccion.contains(termino, ignoreCase = true)
+        }
+    }
+
     fun agregarSucursal(sucursal: Sucursal) {
         val nuevaLista = _sucursales.value?.toMutableList() ?: mutableListOf()
         nuevaLista.add(sucursal)
