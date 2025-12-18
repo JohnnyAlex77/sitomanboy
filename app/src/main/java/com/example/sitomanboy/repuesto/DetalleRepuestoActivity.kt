@@ -2,6 +2,7 @@ package com.example.sitomanboy.repuesto
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sitomanboy.databinding.ActivityDetalleRepuestoBinding
 import com.example.sitomanboy.model.Repuesto
@@ -16,7 +17,9 @@ class DetalleRepuestoActivity : AppCompatActivity() {
         binding = ActivityDetalleRepuestoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        repuesto = intent.getSerializableExtra("repuesto") as Repuesto
+        // Usar getParcelableExtra sin Serializable
+        repuesto = intent.getParcelableExtra("repuesto") ?: Repuesto()
+
         cargarRepuesto()
         setupUI()
     }
@@ -28,14 +31,14 @@ class DetalleRepuestoActivity : AppCompatActivity() {
 
         binding.btnModificar.setOnClickListener {
             val intent = Intent(this, ModificarRepuestoActivity::class.java).apply {
-                putExtra("repuesto", repuesto)
+                putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
             }
             startActivity(intent)
         }
 
         binding.btnEliminar.setOnClickListener {
             val intent = Intent(this, ConfirmarEliminacionActivity::class.java).apply {
-                putExtra("repuesto", repuesto)
+                putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                 putExtra("tipo", "repuesto")
             }
             startActivity(intent)

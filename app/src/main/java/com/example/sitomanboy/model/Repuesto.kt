@@ -1,13 +1,15 @@
 package com.example.sitomanboy.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Repuesto(
     var id: Int = 0,
     var serie: String = "",
     var descripcion: String = "",
     var stock: Int = 0
-) : Serializable {
+) : Parcelable {
 
     // Validación básica de datos
     fun esValido(): Boolean {

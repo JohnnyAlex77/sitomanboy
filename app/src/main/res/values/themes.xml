@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme (SOLO AQUÍ) -->
+    <!-- Base application theme -->
     <style name="Theme.SitoManBoy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/primary_color</item>
@@ -50,7 +50,17 @@
         <item name="subtitleTextColor">@color/white</item>
     </style>
 
-    <!-- Dialog theme overlay (para diálogos) -->
+    <!-- Splash screen theme -->
+    <style name="Theme.SitoManBoy.Splash" parent="Theme.SitoManBoy">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!-- Dialog theme overlay -->
     <style name="ThemeOverlay.SitoManBoy.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="android:windowBackground">@drawable/bg_dialog</item>
         <item name="android:windowMinWidthMajor">90%</item>

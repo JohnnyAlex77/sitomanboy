@@ -94,7 +94,7 @@
             android:label="@string/inventario_sucursal_title" />
 
         <activity
-            android:name=".sucursal.AgregarProductoActivity"
+            android:name=".sucursal.AgregarRepuestoActivity"
             android:exported="false"
             android:label="@string/agregar_producto_title" />
 

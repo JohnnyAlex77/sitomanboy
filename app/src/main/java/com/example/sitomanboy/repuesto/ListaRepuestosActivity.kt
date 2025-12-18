@@ -37,21 +37,21 @@ class ListaRepuestosActivity : AppCompatActivity() {
         adapter = RepuestoAdapter(object : RepuestoAdapter.OnRepuestoClickListener {
             override fun onVerClick(repuesto: Repuesto) {
                 val intent = Intent(this@ListaRepuestosActivity, DetalleRepuestoActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)  // Enviar el objeto completo
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                 }
                 startActivity(intent)
             }
 
             override fun onModificarClick(repuesto: Repuesto) {
                 val intent = Intent(this@ListaRepuestosActivity, ModificarRepuestoActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                 }
                 startActivity(intent)
             }
 
             override fun onEliminarClick(repuesto: Repuesto) {
                 val intent = Intent(this@ListaRepuestosActivity, ConfirmarEliminacionActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)  // Enviar el objeto completo
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                     putExtra("tipo", "repuesto")
                 }
                 startActivity(intent)

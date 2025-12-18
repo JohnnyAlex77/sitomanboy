@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- NOTA: EL TEMA PRINCIPAL Theme.SitoManBoy SE MUEVE A themes.xml -->
     <!-- Este archivo contiene solo ESTILOS DE WIDGETS -->
-
-    <!-- Splash screen theme -->
-    <style name="Theme.SitoManBoy.Splash" parent="Theme.SitoManBoy">
-        <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@null</item>
-    </style>
 
     <!-- Dialog theme -->
     <style name="Theme.SitoManBoy.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">

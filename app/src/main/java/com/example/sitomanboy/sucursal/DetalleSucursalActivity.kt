@@ -2,6 +2,7 @@ package com.example.sitomanboy.sucursal
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.sitomanboy.databinding.ActivityDetalleSucursalBinding
@@ -41,7 +42,7 @@ class DetalleSucursalActivity : AppCompatActivity() {
 
         binding.btnModificarSucursal.setOnClickListener {
             val intent = Intent(this, ModificarSucursalActivity::class.java).apply {
-                putExtra("sucursal", sucursal)
+                putExtra("sucursal", sucursal as android.os.Parcelable)  // Cast explícito
             }
             startActivity(intent)
         }
@@ -51,23 +52,36 @@ class DetalleSucursalActivity : AppCompatActivity() {
                 putExtra("sucursal_codigo", sucursal.codigo)
                 putExtra("tipo", "sucursal")
             }
-            startActivity(intent)
+            startActivityForResult(intent, 1)
         }
     }
 
     private fun cargarSucursal(codigo: String) {
         val sucursalCargada = viewModel.obtenerSucursalPorCodigo(codigo)
-        sucursalCargada?.let {
-            sucursal = it
-            binding.tvCodigo.text = it.codigo
-            binding.tvNombre.text = it.nombre
-            binding.tvDireccion.text = it.direccion
+        if (sucursalCargada != null) {
+            sucursal = sucursalCargada
+            binding.tvCodigo.text = sucursalCargada.codigo
+            binding.tvNombre.text = sucursalCargada.nombre
+            binding.tvDireccion.text = sucursalCargada.direccion
 
             // Calcular estadísticas
-            val repuestos = it.obtenerRepuestos()
+            val repuestos = sucursalCargada.obtenerRepuestos()
             val totalRepuestos = repuestos.size
+            val totalStock = repuestos.sumOf { it.stock }
 
             binding.tvTotalRepuestos.text = "Total repuestos: $totalRepuestos"
+            binding.tvTotalStock.text = "Stock total: $totalStock"
+        } else {
+            Toast.makeText(this, "Sucursal no encontrada", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Si se eliminó la sucursal, terminar esta actividad
+            finish()
         }
     }
 }

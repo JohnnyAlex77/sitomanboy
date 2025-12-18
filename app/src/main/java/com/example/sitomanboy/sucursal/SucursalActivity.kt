@@ -33,7 +33,7 @@ class SucursalActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Configurar SearchView
+        // Configurar SearchView para búsqueda en tiempo real
         binding.searchViewSucursales.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
@@ -46,6 +46,7 @@ class SucursalActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                // Podríamos implementar búsqueda en tiempo real aquí si quisiéramos
                 return false
             }
         })

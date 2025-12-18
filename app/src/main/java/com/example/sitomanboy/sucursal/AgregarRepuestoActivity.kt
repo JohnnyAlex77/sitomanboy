@@ -5,15 +5,15 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityAgregarRepuestoBinding
 import com.example.sitomanboy.model.Repuesto
 import com.example.sitomanboy.viewmodel.RepuestoViewModel
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
-class AgregarProductoActivity : AppCompatActivity() {
+// NOMBRE CAMBIADO de AgregarProductoActivity a AgregarRepuestoActivity
+class AgregarRepuestoActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAgregarRepuestoBinding  // ¡NOMBRE CORREGIDO!
+    private lateinit var binding: ActivityAgregarRepuestoBinding
     private lateinit var sucursalViewModel: SucursalViewModel
     private lateinit var repuestoViewModel: RepuestoViewModel
     private lateinit var codigoSucursal: String
@@ -21,7 +21,7 @@ class AgregarProductoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAgregarRepuestoBinding.inflate(layoutInflater)  // ¡NOMBRE CORREGIDO!
+        binding = ActivityAgregarRepuestoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         sucursalViewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
@@ -35,7 +35,7 @@ class AgregarProductoActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.btnAgregar.setOnClickListener {
-            agregarProductoASucursal()
+            agregarRepuestoASucursal()
         }
 
         binding.btnCancelar.setOnClickListener {
@@ -78,7 +78,7 @@ class AgregarProductoActivity : AppCompatActivity() {
         }
     }
 
-    private fun agregarProductoASucursal() {
+    private fun agregarRepuestoASucursal() {
         val stockText = binding.etCantidad.text.toString().trim()
 
         if (repuestoSeleccionado == null) {
@@ -109,11 +109,11 @@ class AgregarProductoActivity : AppCompatActivity() {
         val exito = sucursalViewModel.agregarRepuestoASucursal(codigoSucursal, repuestoParaSucursal)
 
         if (exito) {
-            Toast.makeText(this, "Producto agregado a la sucursal", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Repuesto agregado a la sucursal", Toast.LENGTH_SHORT).show()
             setResult(RESULT_OK)
             finish()
         } else {
-            Toast.makeText(this, "Error al agregar producto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al agregar repuesto", Toast.LENGTH_SHORT).show()
         }
     }
 }

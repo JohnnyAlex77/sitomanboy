@@ -5,8 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.sitomanboy.R
 import com.example.sitomanboy.databinding.ActivityCrearRepuestoBinding
@@ -33,8 +31,6 @@ class CrearRepuestoActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnConfirmar.isVisible = false
-
         binding.btnConfirmar.setOnClickListener {
             crearRepuesto()
         }
@@ -51,7 +47,7 @@ class CrearRepuestoActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 serieValida = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etSerie, serieValida)
+                actualizarEstadoCampos()
                 verificarCampos()
             }
         })
@@ -62,7 +58,7 @@ class CrearRepuestoActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 descripcionValida = s.toString().trim().isNotEmpty()
-                actualizarColorCampo(binding.etDescripcion, descripcionValida)
+                actualizarEstadoCampos()
                 verificarCampos()
             }
         })
@@ -74,37 +70,39 @@ class CrearRepuestoActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 val texto = s.toString().trim()
                 stockValido = try {
-                    texto.toInt() >= 0
+                    texto.isNotEmpty() && texto.toInt() >= 0
                 } catch (e: NumberFormatException) {
                     false
                 }
-                actualizarColorCampo(binding.etStock, stockValido)
+                actualizarEstadoCampos()
                 verificarCampos()
             }
         })
     }
 
-    private fun actualizarColorCampo(campo: android.widget.EditText, esValido: Boolean) {
-        try {
-            if (esValido) {
-                // Intentar usar drawable válido si existe
-                campo.background = ContextCompat.getDrawable(this, R.drawable.bg_edittext_valid)
-            } else {
-                // Intentar usar drawable inválido si existe
-                campo.background = ContextCompat.getDrawable(this, R.drawable.bg_edittext_invalid)
-            }
-        } catch (e: Exception) {
-            // Si no existen los drawables, usar colores básicos
-            if (esValido) {
-                campo.setHintTextColor(ContextCompat.getColor(this, R.color.valid_color))
-            } else {
-                campo.setHintTextColor(ContextCompat.getColor(this, R.color.invalid_color))
-            }
+    private fun actualizarEstadoCampos() {
+        // Esta función maneja el estado visual de los campos
+        if (serieValida) {
+            binding.etSerie.background = getDrawable(R.drawable.bg_edittext_valid)
+        } else {
+            binding.etSerie.background = getDrawable(R.drawable.bg_edittext)
+        }
+
+        if (descripcionValida) {
+            binding.etDescripcion.background = getDrawable(R.drawable.bg_edittext_valid)
+        } else {
+            binding.etDescripcion.background = getDrawable(R.drawable.bg_edittext)
+        }
+
+        if (stockValido) {
+            binding.etStock.background = getDrawable(R.drawable.bg_edittext_valid)
+        } else {
+            binding.etStock.background = getDrawable(R.drawable.bg_edittext)
         }
     }
 
     private fun verificarCampos() {
-        binding.btnConfirmar.isVisible = serieValida && descripcionValida && stockValido
+        binding.btnConfirmar.isEnabled = serieValida && descripcionValida && stockValido
     }
 
     private fun crearRepuesto() {
@@ -118,22 +116,30 @@ class CrearRepuestoActivity : AppCompatActivity() {
 
         // Validaciones finales
         if (!serieValida || !descripcionValida || !stockValido) {
-            Toast.makeText(this, "Por favor complete todos los campos correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Por favor complete todos los campos correctamente",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
-        // Crear repuesto con ID temporal (el ViewModel asignará uno)
+        // Crear repuesto
         val repuesto = Repuesto(
-            id = 0, // ID temporal, el ViewModel lo actualizará
+            id = 0, // ID temporal
             serie = serie,
             descripcion = descripcion,
             stock = stock
         )
 
-        // LÍNEA 129 CORREGIDA: El método agregarRepuesto NO devuelve valor
-        viewModel.agregarRepuesto(repuesto)
+        // Agregar repuesto usando ViewModel
+        val exito = viewModel.agregarRepuesto(repuesto)
 
-        Toast.makeText(this, "Repuesto creado exitosamente", Toast.LENGTH_SHORT).show()
-        finish()
+        if (exito) {
+            Toast.makeText(this, "Repuesto creado exitosamente", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Error al crear repuesto", Toast.LENGTH_SHORT).show()
+        }
     }
 }

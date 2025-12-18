@@ -40,6 +40,8 @@
         android:textAllCaps="false"
         android:textSize="18sp"/>
 
+    <!-- ELIMINAR estos botones que no tienen actividades correspondientes -->
+    <!--
     <Button
         android:id="@+id/btnCrearRepuesto"
         android:layout_width="match_parent"
@@ -72,5 +74,6 @@
         android:background="@drawable/bg_button"
         android:textAllCaps="false"
         android:textSize="18sp"/>
+    -->
 
 </LinearLayout>

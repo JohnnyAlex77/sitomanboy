@@ -40,21 +40,21 @@ class RepuestoActivity : AppCompatActivity() {
         adapter = RepuestoAdapter(object : RepuestoAdapter.OnRepuestoClickListener {
             override fun onVerClick(repuesto: Repuesto) {
                 val intent = Intent(this@RepuestoActivity, DetalleRepuestoActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                 }
                 startActivity(intent)
             }
 
             override fun onModificarClick(repuesto: Repuesto) {
                 val intent = Intent(this@RepuestoActivity, ModificarRepuestoActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                 }
                 startActivity(intent)
             }
 
             override fun onEliminarClick(repuesto: Repuesto) {
                 val intent = Intent(this@RepuestoActivity, ConfirmarEliminacionActivity::class.java).apply {
-                    putExtra("repuesto", repuesto)
+                    putExtra("repuesto", repuesto as android.os.Parcelable)  // Cast explícito
                     putExtra("tipo", "repuesto")
                 }
                 startActivity(intent)
@@ -74,7 +74,14 @@ class RepuestoActivity : AppCompatActivity() {
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                if (!query.isNullOrEmpty()) {
+                    val resultados = viewModel.buscarRepuestos(query)
+                    adapter.submitList(resultados)
+                    if (resultados.isEmpty()) {
+                        Toast.makeText(this@RepuestoActivity, "No se encontraron repuestos", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

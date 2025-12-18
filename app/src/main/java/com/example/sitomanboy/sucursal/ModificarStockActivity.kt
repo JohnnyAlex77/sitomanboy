@@ -30,8 +30,13 @@ class ModificarStockActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        // No hay tvStockActual en el layout, así que lo comentamos
-        // binding.tvStockActual.text = "Stock actual: $stockActual"
+        // Mostrar stock actual en un TextView si existe
+        try {
+            binding.tvStockActual.text = "Stock actual: $stockActual"
+        } catch (e: Exception) {
+            // Si el TextView no existe en el layout, no mostrar nada
+        }
+
         binding.etStock.setText(stockActual.toString())
 
         binding.btnActualizar.setOnClickListener {

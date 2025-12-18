@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sitomanboy.databinding.ActivityInventarioSucursalBinding
 import com.example.sitomanboy.model.Repuesto
-import com.example.sitomanboy.model.Sucursal
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
 class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInventarioClickListener {
@@ -15,7 +14,7 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
     private lateinit var binding: ActivityInventarioSucursalBinding
     private lateinit var sucursalViewModel: SucursalViewModel
     private lateinit var adapter: InventarioAdapter
-    private lateinit var sucursal: Sucursal
+    private lateinit var codigoSucursal: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +23,11 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
 
         sucursalViewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
 
-        val codigoSucursal = intent.getStringExtra("sucursal_codigo") ?: ""
-        cargarSucursal(codigoSucursal)
+        codigoSucursal = intent.getStringExtra("sucursal_codigo") ?: ""
+        if (codigoSucursal.isEmpty()) {
+            finish()
+            return
+        }
 
         setupUI()
         setupRecyclerView()
@@ -33,18 +35,17 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
         setupSearchView()
     }
 
-    private fun cargarSucursal(codigo: String) {
-        val sucursalCargada = sucursalViewModel.obtenerSucursalPorCodigo(codigo)
-        sucursalCargada?.let {
-            sucursal = it
+    private fun setupUI() {
+        // Mostrar título
+        val sucursal = sucursalViewModel.obtenerSucursalPorCodigo(codigoSucursal)
+        sucursal?.let {
             binding.tvTituloSucursal.text = "Inventario: ${it.nombre}"
         }
-    }
 
-    private fun setupUI() {
         binding.btnAgregarProducto.setOnClickListener {
-            val intent = Intent(this, AgregarProductoActivity::class.java).apply {
-                putExtra("sucursal_codigo", sucursal.codigo)
+            // CORREGIDO: Usar AgregarRepuestoActivity
+            val intent = Intent(this, AgregarRepuestoActivity::class.java).apply {
+                putExtra("sucursal_codigo", codigoSucursal)
             }
             startActivityForResult(intent, 1)
         }
@@ -56,8 +57,15 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
         binding.recyclerViewInventario.adapter = adapter
 
         // Cargar inventario inicial
-        val inventario = sucursal.obtenerRepuestos()
-        adapter.submitList(inventario)
+        cargarInventario()
+    }
+
+    private fun cargarInventario() {
+        val sucursal = sucursalViewModel.obtenerSucursalPorCodigo(codigoSucursal)
+        sucursal?.let {
+            val inventario = it.obtenerRepuestos()
+            adapter.submitList(inventario)
+        }
     }
 
     private fun setupSearchView() {
@@ -71,8 +79,7 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
                     buscarEnInventario(newText)
                 } else {
                     // Mostrar todo el inventario si la búsqueda está vacía
-                    val inventarioCompleto = sucursal.obtenerRepuestos()
-                    adapter.submitList(inventarioCompleto)
+                    cargarInventario()
                 }
                 return true
             }
@@ -80,34 +87,39 @@ class InventarioSucursalActivity : AppCompatActivity(), InventarioAdapter.OnInve
     }
 
     private fun actualizarEstadisticas() {
-        val inventario = sucursal.obtenerRepuestos()
-        val totalProductos = inventario.size
-        binding.tvTotalProductos.text = "Productos en inventario: $totalProductos"
+        val sucursal = sucursalViewModel.obtenerSucursalPorCodigo(codigoSucursal)
+        sucursal?.let {
+            val inventario = it.obtenerRepuestos()
+            val totalProductos = inventario.size
+            val totalStock = inventario.sumOf { it.stock }
+            binding.tvTotalProductos.text = "Productos: $totalProductos • Stock total: $totalStock"
+        }
     }
 
     private fun buscarEnInventario(termino: String) {
-        val inventario = sucursal.obtenerRepuestos()
-        val resultados = inventario.filter {
-            it.serie.contains(termino, ignoreCase = true) ||
-                    it.descripcion.contains(termino, ignoreCase = true)
+        val sucursal = sucursalViewModel.obtenerSucursalPorCodigo(codigoSucursal)
+        sucursal?.let {
+            val inventario = it.obtenerRepuestos()
+            val resultados = inventario.filter { repuesto ->
+                repuesto.serie.contains(termino, ignoreCase = true) ||
+                        repuesto.descripcion.contains(termino, ignoreCase = true)
+            }
+            adapter.submitList(resultados)
         }
-        adapter.submitList(resultados)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
             // Recargar inventario después de agregar producto
-            cargarSucursal(sucursal.codigo) // Recargar sucursal
-            val inventarioActual = sucursal.obtenerRepuestos()
-            adapter.submitList(inventarioActual)
+            cargarInventario()
             actualizarEstadisticas()
         }
     }
 
     override fun onModificarStockClick(repuesto: Repuesto) {
         val intent = Intent(this, ModificarStockActivity::class.java).apply {
-            putExtra("sucursal_codigo", sucursal.codigo)
+            putExtra("sucursal_codigo", codigoSucursal)
             putExtra("repuesto_id", repuesto.id)
             putExtra("stock_actual", repuesto.stock)
         }

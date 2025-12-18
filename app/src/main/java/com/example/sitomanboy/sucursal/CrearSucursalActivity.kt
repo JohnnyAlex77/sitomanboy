@@ -5,10 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.sitomanboy.R
-import com.example.sitomanboy.databinding.ActivityCrearSucursalBinding  // Asegúrate que el layout se llama así
+import com.example.sitomanboy.databinding.ActivityCrearSucursalBinding
 import com.example.sitomanboy.model.Sucursal
 import com.example.sitomanboy.viewmodel.SucursalViewModel
 
@@ -32,7 +30,7 @@ class CrearSucursalActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnGuardarSucursal.isVisible = false
+        binding.btnGuardarSucursal.isEnabled = false
 
         binding.btnGuardarSucursal.setOnClickListener {
             crearSucursal()
@@ -76,7 +74,7 @@ class CrearSucursalActivity : AppCompatActivity() {
     }
 
     private fun verificarCampos() {
-        binding.btnGuardarSucursal.isVisible = codigoValido && nombreValido && direccionValida
+        binding.btnGuardarSucursal.isEnabled = codigoValido && nombreValido && direccionValida
     }
 
     private fun crearSucursal() {
@@ -97,10 +95,14 @@ class CrearSucursalActivity : AppCompatActivity() {
             direccion = direccion
         )
 
-        // El método agregarSucursal no retorna valor
-        viewModel.agregarSucursal(sucursal)
+        // CORREGIDO: El método ahora retorna Boolean
+        val exito = viewModel.agregarSucursal(sucursal)
 
-        Toast.makeText(this, "Sucursal creada exitosamente", Toast.LENGTH_SHORT).show()
-        finish()
+        if (exito) {
+            Toast.makeText(this, "Sucursal creada exitosamente", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Error al crear sucursal", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.example.sitomanboy.sucursal
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +20,9 @@ class ModificarSucursalActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[SucursalViewModel::class.java]
-        sucursalOriginal = intent.getSerializableExtra("sucursal") as Sucursal
+
+        // Usar getParcelableExtra en lugar de getSerializableExtra
+        sucursalOriginal = intent.getParcelableExtra("sucursal") ?: Sucursal()
 
         cargarDatosSucursal()
         setupUI()

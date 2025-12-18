@@ -1,13 +1,15 @@
 package com.example.sitomanboy.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Sucursal(
     var codigo: String = "",
     var nombre: String = "",
     var direccion: String = "",
     private val _repuestos: MutableList<Repuesto> = mutableListOf()
-) : Serializable {
+) : Parcelable {
 
     // Lista privada para encapsulamiento
     private val repuestos: MutableList<Repuesto> = _repuestos
@@ -27,7 +29,7 @@ data class Sucursal(
     }
 
     fun obtenerRepuestos(): List<Repuesto> {
-        return repuestos.toList()
+        return ArrayList(repuestos) // Retornar copia para mantener encapsulamiento
     }
 
     fun obtenerRepuestoPorId(id: Int): Repuesto? {
@@ -45,6 +47,10 @@ data class Sucursal(
 
     fun obtenerStockTotal(): Int {
         return repuestos.sumOf { it.stock }
+    }
+
+    fun obtenerCantidadRepuestos(): Int {
+        return repuestos.size
     }
 
     // Validación básica de datos

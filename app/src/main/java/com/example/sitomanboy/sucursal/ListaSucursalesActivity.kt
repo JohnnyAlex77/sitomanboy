@@ -44,7 +44,7 @@ class ListaSucursalesActivity : AppCompatActivity() {
 
             override fun onModificarClick(sucursal: Sucursal) {
                 val intent = Intent(this@ListaSucursalesActivity, ModificarSucursalActivity::class.java).apply {
-                    putExtra("sucursal", sucursal)
+                    putExtra("sucursal", sucursal as android.os.Parcelable)  // Cast explícito
                 }
                 startActivity(intent)
             }

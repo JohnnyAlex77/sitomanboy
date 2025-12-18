@@ -71,8 +71,8 @@
                 android:layout_weight="1"
                 android:text="@string/btn_eliminar"
                 android:background="@drawable/bg_button_danger"
-            android:layout_marginStart="4dp"
-            android:textAllCaps="false" />
+                android:layout_marginStart="4dp"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
